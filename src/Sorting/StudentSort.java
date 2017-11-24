@@ -16,7 +16,7 @@ public class StudentSort extends javax.swing.JFrame {
         list = new DefaultListModel();
         lststudents.setModel(list);//connects data to list
     }
-
+    //Modify to work with ISSStudent, Original was Int 
     ////////////////////////////////////////////////////////////////
     public static void selectionSort(ISSStudent[] a) {
         for (int i = 0; i < a.length - 1; i++) {
