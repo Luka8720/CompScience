@@ -3,16 +3,19 @@ package Assignments;
 import java.util.Random;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import java.util.Date;
 
 public class Sorting extends javax.swing.JFrame {
 
-    int nums[] = new int[10000];
+    int nums[] = new int[50000];
     DefaultListModel list;
     boolean sorted = false;
+    long begintime,endtime,time;
     
     public Sorting() {
         initComponents();
         shuffle();
+        list = new DefaultListModel();
         //connect to actual list
         lstnums.setModel(list);
         //print nums
@@ -27,8 +30,8 @@ public class Sorting extends javax.swing.JFrame {
     
     public void shuffle(){
         Random r = new Random();
-        for (int i = 0; i < 10000; i++) {
-            nums[i] = r.nextInt(10000)+1;
+        for (int i = 0; i < 50000; i++) {
+            nums[i] = r.nextInt(50000)+1;
         }
     }
     @SuppressWarnings("unchecked")
@@ -43,6 +46,7 @@ public class Sorting extends javax.swing.JFrame {
         btnquick = new javax.swing.JButton();
         lbltime = new javax.swing.JLabel();
         btngenerate = new javax.swing.JButton();
+        txttime = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,8 +60,18 @@ public class Sorting extends javax.swing.JFrame {
         });
 
         btnselection.setText("Selection");
+        btnselection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnselectionActionPerformed(evt);
+            }
+        });
 
         btninsertion.setText("Insertion");
+        btninsertion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btninsertionActionPerformed(evt);
+            }
+        });
 
         btnquick.setText("Quick");
         btnquick.addActionListener(new java.awt.event.ActionListener() {
@@ -68,7 +82,7 @@ public class Sorting extends javax.swing.JFrame {
 
         lbltime.setBackground(new java.awt.Color(0, 0, 0));
         lbltime.setForeground(new java.awt.Color(255, 255, 255));
-        lbltime.setText("Time Elapsed = ?");
+        lbltime.setText("Time Elapsed =");
         lbltime.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lbltime.setOpaque(true);
 
@@ -79,6 +93,9 @@ public class Sorting extends javax.swing.JFrame {
             }
         });
 
+        txttime.setBackground(new java.awt.Color(0, 0, 0));
+        txttime.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,20 +103,26 @@ public class Sorting extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnselection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btninsertion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnbubble, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnquick, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbltime, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lbltime)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btngenerate)
-                        .addGap(20, 20, 20))))
+                        .addComponent(txttime, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btngenerate, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnselection, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnbubble, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btninsertion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnquick, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(46, 46, 46))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,17 +130,19 @@ public class Sorting extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btngenerate, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(btngenerate, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnbubble, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnselection, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btninsertion, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnquick, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbltime, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbltime, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txttime, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
@@ -133,6 +158,7 @@ public class Sorting extends javax.swing.JFrame {
     private void btngenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngenerateActionPerformed
         shuffle();
         printList();
+        sorted = false;
     }//GEN-LAST:event_btngenerateActionPerformed
 
     private void btnbubbleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbubbleActionPerformed
@@ -140,10 +166,42 @@ public class Sorting extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "This list is already sorted - generate numbers first");
             return;
         }
+        begintime = System.currentTimeMillis();
         bubbleSort(nums);
+        endtime = System.currentTimeMillis();
+        time = (endtime - begintime);
         sorted = true;
         printList();
+        txttime.setText(time+" millisec");
     }//GEN-LAST:event_btnbubbleActionPerformed
+
+    private void btnselectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnselectionActionPerformed
+        if(sorted){
+            JOptionPane.showMessageDialog(this, "This list is already sorted - generate numbers first");
+            return;
+        }
+        begintime = System.currentTimeMillis();
+        selectionSort(nums);
+        endtime = System.currentTimeMillis();
+        time = (endtime - begintime);
+        sorted = true;
+        printList();
+        txttime.setText(time+" millisec");
+    }//GEN-LAST:event_btnselectionActionPerformed
+
+    private void btninsertionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninsertionActionPerformed
+        if(sorted){
+            JOptionPane.showMessageDialog(this, "This list is already sorted - generate numbers first");
+            return;
+        }
+        begintime = System.currentTimeMillis();
+        insertionSort(nums);
+        endtime = System.currentTimeMillis();
+        time = (endtime - begintime);
+        sorted = true;
+        printList();
+        txttime.setText(time+" millisecs");
+    }//GEN-LAST:event_btninsertionActionPerformed
 public static void bubbleSort(int[] a){
    	int k = 0;
    	boolean exchangeMade = true;
@@ -274,5 +332,6 @@ public static void insertionSort(int a[]){
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbltime;
     private javax.swing.JList<String> lstnums;
+    private javax.swing.JTextField txttime;
     // End of variables declaration//GEN-END:variables
 }

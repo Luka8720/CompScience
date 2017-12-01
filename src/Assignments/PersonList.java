@@ -25,7 +25,7 @@ public class PersonList extends javax.swing.JFrame {
     
     public void clearForm(){
         txtname.setText("");
-        txtage.setName("");
+        txtage.setText("");
         buttonGroup1.clearSelection();
         lstpeople.clearSelection();
     }
@@ -72,20 +72,26 @@ public class PersonList extends javax.swing.JFrame {
 
         buttonGroup1.add(optmale);
         optmale.setText("Male");
+        optmale.setActionCommand("M");
 
         buttonGroup1.add(optfemale);
         optfemale.setText("Female");
+        optfemale.setActionCommand("F");
 
         jLabel1.setText("Name:");
 
         jLabel2.setText("Age:");
 
+        lstpeople.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstpeopleMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(lstpeople);
 
         jMenu1.setText("File");
 
         mnuexit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
-        mnuexit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assignments/exit.png"))); // NOI18N
         mnuexit.setText("Exit");
         mnuexit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,7 +105,6 @@ public class PersonList extends javax.swing.JFrame {
         jMenu2.setText("Edit");
 
         mnuclear.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
-        mnuclear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assignments/exit.png"))); // NOI18N
         mnuclear.setText("Clear");
         mnuclear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,7 +114,6 @@ public class PersonList extends javax.swing.JFrame {
         jMenu2.add(mnuclear);
 
         mnuadd.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
-        mnuadd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assignments/insert.png"))); // NOI18N
         mnuadd.setText("Add");
         mnuadd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,7 +123,6 @@ public class PersonList extends javax.swing.JFrame {
         jMenu2.add(mnuadd);
 
         mnudelete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
-        mnudelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assignments/delete.png"))); // NOI18N
         mnudelete.setText("Delete");
         mnudelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,7 +136,6 @@ public class PersonList extends javax.swing.JFrame {
         Menu.setText("Filter");
 
         mnuall.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
-        mnuall.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assignments/all.png"))); // NOI18N
         mnuall.setText("View All");
         mnuall.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,7 +145,6 @@ public class PersonList extends javax.swing.JFrame {
         Menu.add(mnuall);
 
         mnumale.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.ALT_MASK));
-        mnumale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assignments/male.png"))); // NOI18N
         mnumale.setText("Male");
         mnumale.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,7 +154,6 @@ public class PersonList extends javax.swing.JFrame {
         Menu.add(mnumale);
 
         mnufemale.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.ALT_MASK));
-        mnufemale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assignments/female.png"))); // NOI18N
         mnufemale.setText("Female");
         mnufemale.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,31 +172,29 @@ public class PersonList extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(optmale)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(27, 27, 27)
                         .addComponent(optfemale))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(18, 18, 18)
-                            .addComponent(txtage))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtname, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(18, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtage, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtname)))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(txtname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -204,11 +202,14 @@ public class PersonList extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(txtage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(optmale)
-                            .addComponent(optfemale))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(optfemale)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -267,6 +268,12 @@ public class PersonList extends javax.swing.JFrame {
     private void mnuexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuexitActionPerformed
     System.exit(0);
     }//GEN-LAST:event_mnuexitActionPerformed
+
+    private void lstpeopleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstpeopleMouseClicked
+        String name = ""+lstpeople.getSelectedValue();
+        int loc = search(people, new Person(name,0,""));
+        show(people.get(loc));
+    }//GEN-LAST:event_lstpeopleMouseClicked
 
     /**
      * @param args the command line arguments
